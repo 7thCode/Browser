@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Browser</title>
+  <style>
+    body, html { margin: 0; height: 100%; }
+    #toolbar { padding: 5px; background-color: #eee; }
+    #url { width: 80%; }
+    webview { width: 100%; height: calc(100% - 40px); }
+  </style>
+</head>
+<body>
+  <div id="toolbar">
+    <input id="url" type="text" value="https://www.google.com">
+    <button id="go">Go</button>
+  </div>
+  <webview id="view" src="https://www.google.com"></webview>
+  <script>
+    const urlInput = document.getElementById('url');
+    const goBtn = document.getElementById('go');
+    const view = document.getElementById('view');
+
+    function navigate() {
+      let url = urlInput.value;
+      if (!/^https?:\/\//.test(url)) {
+        url = 'http://' + url;
+      }
+      view.loadURL(url);
+    }
+
+    goBtn.addEventListener('click', navigate);
+    urlInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') navigate();
+    });
+  </script>
+</body>
+</html>
